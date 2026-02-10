@@ -33,6 +33,7 @@ func newBackend(backendURL string, healthCheckUrl string) (*Backend, error) {
 
 func (backendServer *Backend) HealthCheck() (bool, string, error) {
 	// TODO: add support for other layers (currently only L7)
+	// TODO: add support for timeouts
 	resp, err := http.Get(backendServer.URL.String() + backendServer.HealthCheckURL)
 	if err != nil {
 		return false, "", err
