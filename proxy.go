@@ -13,6 +13,7 @@ type Backend struct {
 	mu             sync.RWMutex
 	ReverseProxy   *httputil.ReverseProxy
 	HealthCheckURL string
+	Endpoints      []string
 }
 
 type ServerPool struct {
@@ -60,7 +61,7 @@ func (s *ServerPool) GetNextPeer() *Backend {
 	return nil
 }
 
-func newBackend(backendURL string, healthCheckUrl string) (*Backend, error) {
+func newBackend(backendURL string, healthCheckUrl string, endpoints []string) (*Backend, error) {
 	url, err := url.Parse(backendURL)
 
 	if err != nil {
@@ -73,6 +74,7 @@ func newBackend(backendURL string, healthCheckUrl string) (*Backend, error) {
 		mu:             sync.RWMutex{},
 		ReverseProxy:   httputil.NewSingleHostReverseProxy(url),
 		HealthCheckURL: healthCheckUrl,
+		Endpoints:      endpoints,
 	}, nil
 }
 
