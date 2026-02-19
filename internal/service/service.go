@@ -1,13 +1,13 @@
 package service
 
 import (
-	"hermod/internal/proxy"
+	"hermod/internal/serverpool"
 	"net/http"
 )
 
 type Service struct {
 	Name string
-	Pool *proxy.ServerPool
+	Pool *serverpool.ServerPool
 }
 
 func (s *Service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
